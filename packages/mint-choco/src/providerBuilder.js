@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { err } from '../utils';
 import createContextProvider from './createContextProvider';
-import { mapContextGetters, mapContextState, mapContextMutations }   from './mixinBuilder';
+import { mapContextGetters, mapContextState, mapContextMutations }   from './mixins';
 
 class ProviderBuilder {
   #state;
