@@ -1,6 +1,6 @@
 <img src="./images/logo.png" width="100" height="100">
 
-## 🤔 What is MintChoco?
+## 🤔 About MintChoco?
 
 MintChoco is new Vue state management system inspired by `React context api and reducer patterns`.
 
