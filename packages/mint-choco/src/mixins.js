@@ -9,99 +9,104 @@ const typeValidator = {
   },
   validate(el) {
     this.data[typeof el] ?? err(`el must string: ${el} : ${typeof el}`);
-  }
+  },
 };
 
-const objectEntryMapper = ({ contextValue, target, entries }) => {
+const objectEntryMapper = ({ name, contextValue, entries }) => {
+  const _target = {};
   Object.entries(entries).forEach(([key, value]) => {
     typeValidator.validate(value);
-    target[key] = function(payload) {
-      const valueGotten = _get(this, `${contextValue}.${value}`);
-      return typeof valueGotten === 'function'
+    _target[key] = function (payload) {
+      const valueGotten = _get(this, `${name}.${contextValue}.${value}`);
+      return typeof valueGotten === "function"
         ? valueGotten(payload)
         : valueGotten;
     };
   });
+  return _target;
 };
 
-const arrayEntryMapper = ({ contextValue, target, entries }) => {
-  entries.forEach(entry => {
+const arrayEntryMapper = ({ name, contextValue, entries }) => {
+  const _target = {};
+  entries.forEach((entry) => {
     typeValidator.validate(entry);
-    target[entry] = function(payload) {
-      const valueGotten = _get(this, `${contextValue}.${entry}`);
-      return typeof valueGotten === 'function'
+    _target[entry] = function (payload) {
+      const valueGotten = _get(this, `${name}.${contextValue}.${entry}`);
+      return typeof valueGotten === "function"
         ? valueGotten(payload)
         : valueGotten;
     };
   });
+  return _target;
 };
 
-const entryTypeTable = ({ contextValue, target, entries }) => {
+const getMappedTarget = ({ name, contextValue, target, entries }) => {
   switch (true) {
     case _isArray(entries):
-      arrayEntryMapper({ contextValue, target, entries });
-      break;
+      return arrayEntryMapper({ name, contextValue, target, entries });
     case _isObject(entries):
-      objectEntryMapper({ contextValue, target, entries });
-      break;
+      return objectEntryMapper({ name, contextValue, target, entries });
     default:
       err(`entries should either array or object: ${entries}`);
   }
 };
 
-export const mapContextState = state => {
-  let _state = {};
-  const contextValue = 'state';
-  entryTypeTable({
-    contextValue,
-    target: _state,
-    entries: state
-  });
-  return {
-    inject: [contextValue],
-    computed: {
-      ..._state
-    },
-    beforeDestroy() {
-      _state = null;
-    }
+export const mapContextState = (name) => {
+  const _mapContextState = (state) => {
+    let _state = getMappedTarget({
+      name,
+      contextValue: "state",
+      entries: state,
+    });
+    return {
+      inject: [name],
+      computed: {
+        ..._state,
+      },
+      beforeDestroy() {
+        _state = null;
+      },
+    };
   };
+  return _mapContextState;
 };
 
-export const mapContextGetters = getters => {
-  let _getters = {};
-  const contextValue = 'getters';
-  entryTypeTable({
-    contextValue,
-    target: _getters,
-    entries: getters
-  });
-  return {
-    inject: [contextValue],
-    computed: {
-      ..._getters
-    },
-    beforeDestroy() {
-      _getters = null;
-    }
+export const mapContextGetters = (name) => {
+  const _mapContextGetters = (getters) => {
+    let _getters = getMappedTarget({
+      name,
+      contextValue: "getters",
+      entries: getters,
+    });
+    return {
+      inject: [name],
+      computed: {
+        ..._getters,
+      },
+      beforeDestroy() {
+        _getters = null;
+      },
+    };
   };
+  return _mapContextGetters;
 };
 
-export const mapContextMutations = mutations => {
-  let _mutations = {};
-  const contextValue = 'mutations';
-  entryTypeTable({
-    contextValue,
-    target: _mutations,
-    entries: mutations
-  });
-  return {
-    inject: [contextValue],
-    methods: {
-      ..._mutations
-    },
-    beforeDestroy() {
-      _mutations = null;
-    }
+export const mapContextMutations = (name) => {
+  const _mapContextMutations = (mutations) => {
+    let _mutations = getMappedTarget({
+      name,
+      contextValue: "mutations",
+      entries: mutations,
+    });
+    return {
+      inject: [name],
+      methods: {
+        ..._mutations,
+      },
+      beforeDestroy() {
+        _mutations = null;
+      },
+    };
   };
+  return _mapContextMutations;
 };

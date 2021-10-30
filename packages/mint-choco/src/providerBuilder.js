@@ -85,9 +85,9 @@ class ProviderBuilder {
 
   build() {
     return {
-      mapContextState,
-      mapContextGetters,
-      mapContextMutations,
+      mapContextState: mapContextState(this.#name),
+      mapContextGetters: mapContextGetters(this.#name),
+      mapContextMutations: mapContextMutations(this.#name),
       ContextProvider: createContextProvider({ name: this.#name, state: this.state, mutations: this.#mutations, getters: this.#getters })
     };
   }
