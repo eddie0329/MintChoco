@@ -90,9 +90,9 @@ import { mapContextState, mapContextGetters, mapContextMutations } from '../prov
 
 export default {
   mixins: [
-    mapContextState(['count']),
-    mapContextGetters({ double: 'double' }),
-    mapContextMutations({ inc: 'increment', dec: 'decrement' })
+    mapContextState(['count']), // can also be like -> mapContextState({ count: count }) 
+    mapContextGetters({ double: 'double' }), // can also be like -> mapContextGetters(['double'])
+    mapContextMutations({ inc: 'increment', dec: 'decrement' }) // can also be like -> mapContextMutations(['increment', 'decrement'])
   ]
 };
 </script>
