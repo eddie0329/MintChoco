@@ -6,6 +6,8 @@
 
 MintChoco is new Vue state management system inspired by `React context api and reducer patterns`.
 
+🚧 Currently, MintChoco is beta version. No npm published.
+
 ## 💡 Example
 
 See more detail in [here](https://github.com/eddie0329/MintChoco/tree/master/packages/example)
