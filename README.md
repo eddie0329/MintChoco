@@ -105,3 +105,5 @@ export default {
 ## 📝 Todos:
 
 - Need description with js doc
+- Performace check
+- Memory leak check
