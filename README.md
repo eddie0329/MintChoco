@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.png" width="500" height="150">
+  <img src="./images/logo.png" width="500" height="100">
 </p>
 
 ## 🤔 About MintChoco?
