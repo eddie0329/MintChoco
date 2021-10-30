@@ -1,7 +1,7 @@
-import _get from 'lodash/get';
-import _isArray from 'lodash/isArray';
-import _isObject from 'lodash/isObject';
-import { err } from '../utils';
+import _get from "lodash/get";
+import _isArray from "lodash/isArray";
+import _isObject from "lodash/isObject";
+import { err } from "../utils";
 
 const typeValidator = {
   data: {
@@ -52,10 +52,10 @@ const entryTypeTable = ({ contextValue, target, entries }) => {
 export const mapContextState = state => {
   let _state = {};
   const contextValue = 'state';
-  entryTypeTable({ 
-    contextValue, 
-    target: _state, 
-    entries: state 
+  entryTypeTable({
+    contextValue,
+    target: _state,
+    entries: state
   });
   return {
     inject: [contextValue],

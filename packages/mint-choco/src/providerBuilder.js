@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import { err } from '../utils';
-import { mapContextState, mapContextGetters, mapContextMutations } from './mixins';
+import createContextProvider from './createContextProvider';
+import { mapContextGetters, mapContextState, mapContextMutations }   from './mixinBuilder';
 
-class Provider {
+class ProviderBuilder {
   #state;
   #mutations;
   #getters;
@@ -82,8 +83,7 @@ class Provider {
     return this;
   }
 
-
-  build(createContextProvider) {
+  build() {
     return {
       mapContextState,
       mapContextGetters,
@@ -93,25 +93,11 @@ class Provider {
   }
 }
 
-const createContextProvider = ({ name, state, getters, mutations }) => ({
-  name,
-  provide() {
-    return {
-      state,
-      mutations,
-      getters,
-    }
-  },
-  render(h) {
-    return h('div', {}, this.$slots.default);
-  }
-});
-
 export default ({ name, state, getters, mutations }) => {
-  return new Provider()
+  return new ProviderBuilder()
     .setName(name)
     .setState(state)
     .setMutations(mutations)
     .setGetters(getters)
-    .build(createContextProvider);
+    .build();
 };
