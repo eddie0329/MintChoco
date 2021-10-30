@@ -1,0 +1,20 @@
+{
+  "name": "MintChoco",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/eddie0329/MintChoco.git",
+  "author": "eddie0329 <fdsa0329@naver.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "test": "npx lerna run test",
+    "bootstrap": "npx learn run bootstrap",
+    "clean": "npx lerna run clean"
+  }
+}
