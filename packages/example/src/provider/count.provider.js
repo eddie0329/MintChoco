@@ -1,9 +1,11 @@
 import { providerFactory } from 'mint-choco';
 
 const state = {
+  /** @type {number} */
   count: 0
 };
 const getters = {
+  /** @return {number} */
   double: state => state.count * 2
 };
 const mutations = {
