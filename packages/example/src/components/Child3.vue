@@ -15,7 +15,7 @@ export default {
     mapContextState(['count']),
     mapContextGetters({ double: 'double' }),
     mapContextMutations({ inc: 'increment', dec: 'decrement' })
-  ]
+  ],
 };
 </script>
 
